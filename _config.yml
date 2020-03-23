@@ -6,8 +6,8 @@
 # https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
 # https://learnxinyminutes.com/docs/yaml/
 
-title: COVID19 in Lithuania
-description: COVID19 in Lithuania analysis dashboard. Charts with confirmed cases growth and comparison with other countries.
+title: COVID-19 in Lithuania
+description: COVID-19 in Lithuania analysis dashboard. Charts with confirmed cases growth and comparison with other countries.
 github_username: IvonaTau
 # you can comment the below line out if your repo name is not different than your baseurl
 github_repo: "covid19"
