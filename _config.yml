@@ -7,7 +7,7 @@
 # https://learnxinyminutes.com/docs/yaml/
 
 title: COVID19 in Lithuania
-description: COVID19 in Lithuania compared to other. Confirmed cases growth and comparison with other countries.
+description: COVID19 in Lithuania analysis dashboard. Charts with confirmed cases growth and comparison with other countries.
 github_username: IvonaTau
 # you can comment the below line out if your repo name is not different than your baseurl
 github_repo: "covid19"
