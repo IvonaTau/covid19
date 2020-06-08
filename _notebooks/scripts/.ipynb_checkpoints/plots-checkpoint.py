@@ -75,20 +75,21 @@ def plot_new_cases_barplot(df, country, cutoff=30, window=7):
     plt.title('New daily cases in '+country)
     
     
-def plot_new_cases_per100(df, country, total_population, cutoff=30):
+def plot_new_cases_per100(df, country, total_population, cutoff=30, window=17):
     divider = total_population // 100000
     data_f = df[df['Country/Region'] == country]
-    nb_cases = data_f.values[0][cutoff:].astype(float)/divider
+    nb_cases = data_f.values[0][cutoff:].astype(float)
     dates = data_f.columns[cutoff:]
     y_pos = np.arange(len(dates))
     df_ = pd.DataFrame({'Dates': dates,
                      'Confirmed_cases': nb_cases})
+    df_['MA'] = df_.iloc[:,1].rolling(window=window).sum()/divider
 
     plt.figure(figsize=(16, 6))
-    plt.plot(df_['Dates'],df_['Confirmed_cases'].diff(),'-')
-    plt.plot(range(len(df_['Confirmed_cases'])), [25]*len(df_['Confirmed_cases']), ':')
+    plt.plot(df_['Dates'],df_['MA'].diff(),'-')
+    plt.plot(range(len(df_['Confirmed_cases'])), [15]*len(df_['Confirmed_cases']), ':')
     plt.xticks(y_pos,dates, rotation=90)
-    plt.title('New cases per 100 000 habitants in '+country)
+    plt.title('14-day total new cases per 100 000 habitants in '+country)
 
     
 def make_since_chart(dff2, highlight_countries, baseline_countries):
