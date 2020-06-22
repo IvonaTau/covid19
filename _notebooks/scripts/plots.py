@@ -25,6 +25,9 @@ def get_country_colors(x):
 
 
 def plot_confirmed_cases_barplot(df, country, cutoff=35, logarithmic_scale=False):
+    
+    
+    
     data_f = df[df['Country/Region'] == country]
     nb_cases = data_f.values[0][cutoff:].astype(float)
     dates = data_f.columns[cutoff:]
@@ -60,6 +63,14 @@ def plot_confirmed_cases_per100(df, country, total_population, cutoff=30):
 
 def plot_new_cases_barplot(df, country, cutoff=30, window=7):
     data_f = df[df['Country/Region'] == country]
+    
+#     dt_cols = df.columns[~df.columns.isin(['Province/State', 'Country/Region', 'Lat', 'Long'])]
+#     dff = (df.groupby('Country/Region')[dt_cols].sum()
+#        .stack().reset_index(name='Confirmed Cases')
+#        .rename(columns={'level_1': 'Date', 'Country/Region': 'Country'}))
+#     data_f = dff[dff['Country'] == country]
+
+    
     nb_cases = data_f.values[0][cutoff:].astype(float)
     dates = data_f.columns[cutoff:]
     df_ = pd.DataFrame({'Dates': dates,
@@ -73,6 +84,7 @@ def plot_new_cases_barplot(df, country, cutoff=30, window=7):
     plt.plot(range(len(df_['MA'].diff())), df_['MA'].diff(), '--')
     plt.xticks(y_pos,dates, rotation=90)
     plt.title('New daily cases in '+country)
+#     return data_f
     
     
 def plot_new_cases_per100(df, country, total_population, cutoff=30, window=17):
