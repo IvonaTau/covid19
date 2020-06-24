@@ -24,7 +24,7 @@ def get_country_colors(x):
     return mapping.get(x, '#C1B7AD')
 
 
-def plot_confirmed_cases_barplot(df, country, cutoff=35, logarithmic_scale=False):
+def plot_confirmed_cases_barplot(df, country, cutoff=60, logarithmic_scale=False):
     
     
     
@@ -34,7 +34,7 @@ def plot_confirmed_cases_barplot(df, country, cutoff=35, logarithmic_scale=False
     df_ = pd.DataFrame({'Dates': dates,
                      'Confirmed_cases': nb_cases})
 
-    plt.figure(figsize=(16, 6))
+    plt.figure(figsize=(20, 6))
 
     g = sns.barplot(x="Dates", y="Confirmed_cases", data=df_)
     if logarithmic_scale:
@@ -45,7 +45,7 @@ def plot_confirmed_cases_barplot(df, country, cutoff=35, logarithmic_scale=False
     var = g.set_xticklabels(g.get_xticklabels(), rotation=90)
     
     
-def plot_confirmed_cases_per100(df, country, total_population, cutoff=30):
+def plot_confirmed_cases_per100(df, country, total_population, cutoff=60):
     divider = total_population // 100000
     data_f = df[df['Country/Region'] == country]
     nb_cases = data_f.values[0][cutoff:].astype(float)/divider
@@ -54,14 +54,14 @@ def plot_confirmed_cases_per100(df, country, total_population, cutoff=30):
     df_ = pd.DataFrame({'Dates': dates,
                      'Confirmed_cases': nb_cases})
 
-    plt.figure(figsize=(16, 6))
+    plt.figure(figsize=(20, 6))
     plt.plot(df_['Dates'],df_['Confirmed_cases'],'-')
     plt.plot(range(len(df_['Confirmed_cases'])), [25]*len(df_['Confirmed_cases']), ':')
     plt.xticks(y_pos,dates, rotation=90)
     plt.title('Total confirmed cases per 100 000 habitants in '+country)
     
 
-def plot_new_cases_barplot(df, country, cutoff=30, window=7):
+def plot_new_cases_barplot(df, country, cutoff=60, window=7):
     data_f = df[df['Country/Region'] == country]
     
 #     dt_cols = df.columns[~df.columns.isin(['Province/State', 'Country/Region', 'Lat', 'Long'])]
@@ -78,7 +78,7 @@ def plot_new_cases_barplot(df, country, cutoff=30, window=7):
     df_['MA'] = df_.iloc[:,1].rolling(window=window).mean()
 
     y_pos = np.arange(len(dates))
-    plt.figure(figsize=(16, 6))
+    plt.figure(figsize=(20, 6))
     df_['Confirmed_cases'].diff()
     plt.bar(range(len(df_['Confirmed_cases'].diff())), df_['Confirmed_cases'].diff().clip(0,99999999))
     plt.plot(range(len(df_['MA'].diff())), df_['MA'].diff(), '--')
@@ -87,7 +87,7 @@ def plot_new_cases_barplot(df, country, cutoff=30, window=7):
 #     return data_f
     
     
-def plot_new_cases_per100(df, country, total_population, cutoff=30, window=17):
+def plot_new_cases_per100(df, country, total_population, cutoff=60, window=17):
     divider = total_population // 100000
     data_f = df[df['Country/Region'] == country]
     nb_cases = data_f.values[0][cutoff:].astype(float)
@@ -97,9 +97,9 @@ def plot_new_cases_per100(df, country, total_population, cutoff=30, window=17):
                      'Confirmed_cases': nb_cases})
     df_['MA'] = df_.iloc[:,1].rolling(window=window).sum()/divider
 
-    plt.figure(figsize=(16, 6))
+    plt.figure(figsize=(20, 6))
     plt.plot(df_['Dates'],df_['MA'].diff(),'-')
-    plt.plot(range(len(df_['Confirmed_cases'])), [15]*len(df_['Confirmed_cases']), ':')
+    plt.plot(range(len(df_['Confirmed_cases'])), [16]*len(df_['Confirmed_cases']), ':')
     plt.xticks(y_pos,dates, rotation=90)
     plt.title('14-day total new cases per 100 000 habitants in '+country)
 
