@@ -84,7 +84,7 @@ def plot_new_cases_barplot(df, country, cutoff=60, window=7):
     plt.plot(range(len(df_['MA'].diff())), df_['MA'].diff(), '--')
     plt.xticks(y_pos,dates, rotation=90)
     plt.title('New daily cases in '+country)
-    return df_
+#     return df_
     
     
 def plot_new_cases_per100(df, country, total_population, cutoff=60, window=17):
