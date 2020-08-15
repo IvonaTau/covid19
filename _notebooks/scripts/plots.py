@@ -58,7 +58,7 @@ def plot_confirmed_cases_per100(df, country, total_population, cutoff=60):
     plt.plot(df_['Dates'],df_['Confirmed_cases'],'-')
     plt.plot(range(len(df_['Confirmed_cases'])), [25]*len(df_['Confirmed_cases']), ':')
     plt.xticks(y_pos,dates, rotation=90)
-    plt.title('Total confirmed cases per 100 000 habitants in '+country)
+    plt.title('Total confirmed cases per 10 000 habitants in '+country)
     
 
 def plot_new_cases_barplot(df, country, cutoff=60, window=7):
@@ -87,21 +87,21 @@ def plot_new_cases_barplot(df, country, cutoff=60, window=7):
 #     return df_
     
     
-def plot_new_cases_per100(df, country, total_population, cutoff=60, window=17):
-    divider = total_population // 100000
+def plot_new_cases_per100(df, country, total_population, cutoff=60, window=14):
+    divider =  total_population / 100000 
     data_f = df[df['Country/Region'] == country]
     nb_cases = data_f.values[0][cutoff:].astype(float)
     dates = data_f.columns[cutoff:]
     y_pos = np.arange(len(dates))
     df_ = pd.DataFrame({'Dates': dates,
                      'Confirmed_cases': nb_cases})
-    df_['MA'] = df_.iloc[:,1].rolling(window=window).sum()/divider
+    df_['MA'] = df_.iloc[:,1].rolling(window=window).sum().diff()/divider
 
     plt.figure(figsize=(20, 6))
-    plt.plot(df_['Dates'],df_['MA'].diff(),'-')
-    plt.plot(range(len(df_['Confirmed_cases'])), [18]*len(df_['Confirmed_cases']), ':')
+    plt.plot(df_['Dates'],df_['MA'],'-')
+    plt.plot(range(len(df_['Confirmed_cases'])), [16]*len(df_['Confirmed_cases']), ':')
     plt.xticks(y_pos,dates, rotation=90)
-    plt.title('14-day cumulative sum of new cases per 100 000 habitants in '+country)
+    plt.title('14-day mean of new cases per 100 000 habitants in '+country)
 
     
 def make_since_chart(dff2, highlight_countries, baseline_countries):
