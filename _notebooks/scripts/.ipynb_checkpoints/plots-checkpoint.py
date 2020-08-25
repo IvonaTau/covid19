@@ -20,6 +20,7 @@ def get_country_colors(x):
         'Estonia': '#9467bd',
         'Japan': '#C1B7AD',
         'US': 'orange',
+        'Ukraine' : 'orange',
         'Russia': 'red'}
     return mapping.get(x, '#C1B7AD')
 
