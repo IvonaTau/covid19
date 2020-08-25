@@ -101,6 +101,7 @@ def plot_new_cases_per100(df, country, total_population, cutoff=60, window=14):
     plt.figure(figsize=(20, 6))
     plt.plot(df_['Dates'],df_['MA'],'-')
     plt.plot(range(len(df_['Confirmed_cases'])), [16]*len(df_['Confirmed_cases']), ':')
+    plt.plot(range(len(df_['Confirmed_cases'])), [25]*len(df_['Confirmed_cases']), 'r:')
     plt.xticks(y_pos,dates, rotation=90)
     plt.title('14-day mean of new cases per 100 000 habitants in '+country)
 
