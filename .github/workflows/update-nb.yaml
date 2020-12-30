@@ -1,7 +1,7 @@
 name: Update Notebooks And Refresh Page
 true:
   schedule:
-  - cron: 3 3 * * *
+  - cron: 5 8 * * 0
 jobs:
   update-notebooks:
     if: github.event_name == 'schedule'
