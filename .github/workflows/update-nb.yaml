@@ -3,7 +3,7 @@ on:
   schedule:
     - cron:  '59 4 * * *'
 jobs:
-  update-data:
+  update-notebooks:
     if: github.event_name == 'schedule' 
     runs-on: ubuntu-latest
     steps:
@@ -44,22 +44,16 @@ jobs:
       id: update_nb
       run: |
         ./_action_files/run_notebooks.sh
-    - name: save notebooks images
+    - name: save notebooks & images
       run: |
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git config --global user.name "github-actions[bot]"
         git add images/
         git add _notebooks/scripts/
-        git add _notebooks/Market-News.ipynb
-        git add _notebooks/App-autocorrelation.ipynb
-        git add _notebooks/App-covid-19.ipynb        
-        git add _notebooks/App-Correlation_charts.ipynb
-        git add _notebooks/App-markets.ipynb
-        git add _notebooks/App-Price_history_charts.ipynb
-        git add _notebooks/App-Scatter_charts.ipynb
-        git commit -m '[bot] refresh data' 
-        git push -f 
-        
+        git add _notebooks/2020-03-29-poland.ipynb
+        git add _notebooks/2020-03-30-lithuania.ipynb
+        git commit -m'[bot] refresh notebooks'
+        git push -f
     - name: convert notebooks and word docs to posts
       uses: ./_action_files
   
