@@ -1,8 +1,7 @@
 name: Update Notebooks And Refresh Page
 on:
   schedule:
-    - cron:  '0 */12 * * *'#'0 */12 * * *' #every 12 hours, '*/10 * * * *' every 10min
-
+    - cron:  '59 4 * * *'
 jobs:
   update-data:
     if: github.event_name == 'schedule' 
